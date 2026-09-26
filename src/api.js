@@ -7,21 +7,37 @@ async function request(path, options = {}) {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   })
-  const body = await res.json().catch(() => null)
+  const body = res.status === 204 ? null : await res.json().catch(() => null)
   if (!res.ok) {
     throw new Error(body?.error || `Request failed with status ${res.status}`)
   }
   return body
 }
 
+const json = (method, data) => ({ method, body: JSON.stringify(data) })
+
 export const api = {
   health: () => request('/api/health'),
 
-  // Catalog (Step 2)
-  searchCatalog: (q, limit = 20) =>
-    request(`/api/catalog/search?q=${encodeURIComponent(q)}&limit=${limit}`),
+  // Catalog: search the store and see a product's options
+  searchCatalog: (q, limit = 20) => request(`/api/catalog/search?q=${encodeURIComponent(q)}&limit=${limit}`),
   catalogStatus: () => request('/api/catalog/status'),
   getProduct: (storeProductId) => request(`/api/catalog/products/${storeProductId}`),
+
+  // Tracked products
+  listTracked: () => request('/api/tracked'),
+  addTracked: (storeProductId, optionId) =>
+    request('/api/tracked', json('POST', { store_product_id: storeProductId, option_id: optionId })),
+  updateTracked: (id, changes) => request(`/api/tracked/${id}`, json('PATCH', changes)),
+  removeTracked: (id) => request(`/api/tracked/${id}`, { method: 'DELETE' }),
+  history: (id, limit = 500) => request(`/api/tracked/${id}/history?limit=${limit}`),
+  scrapeNow: (id) => request(`/api/tracked/${id}/scrape`, { method: 'POST' }),
+
+  // Scheduler visibility
+  runs: (limit = 10) => request(`/api/runs?limit=${limit}`),
 }
+
+// A plain link (not fetch) so the browser downloads the file using the server's Content-Disposition.
+export const exportCsvUrl = `${API_URL}/api/export/scrapes.csv`
 
 export { API_URL }
