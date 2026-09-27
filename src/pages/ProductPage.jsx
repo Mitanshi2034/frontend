@@ -155,7 +155,7 @@ export default function ProductPage() {
         <section className="glass panel">{history && <HistoryCharts attempts={history} />}</section>
         <aside className="glass side-panel">
           <header className="panel-head">
-            <h2>Changes</h2>
+            <h2>Alerts</h2>
             <span className="hint">
               {product.total_attempts} checks · {product.failed_attempts} failed · {product.retried_attempts} retried
             </span>

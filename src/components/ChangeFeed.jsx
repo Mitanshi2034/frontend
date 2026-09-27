@@ -31,7 +31,7 @@ function describe(e) {
 
 export default function ChangeFeed({ changes, limit = 8, productId }) {
   const items = (productId ? changes.filter((c) => c.tracked_product_id === productId) : changes).slice(0, limit)
-  if (items.length === 0) return <p className="note">No changes yet.</p>
+  if (items.length === 0) return <p className="note">No alerts yet.</p>
   return (
     <ul className="feed">
       {items.map((e, i) => {

@@ -76,9 +76,9 @@ export default function OverviewPage({ onTrack }) {
           )}
         </section>
 
-        <aside className="glass side-panel" aria-label="Recent changes">
+        <aside className="glass side-panel" aria-label="Alerts">
           <header className="panel-head">
-            <h2>Recent changes</h2>
+            <h2>Alerts</h2>
           </header>
           <ChangeFeed changes={changes} limit={9} />
         </aside>
