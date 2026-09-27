@@ -3,7 +3,7 @@ import { api } from '../api'
 
 // "Track a product": search the store by partial or full name, open a product,
 // pick one option, track it. Opens as a dialog over any page.
-export default function TrackModal({ open, onClose, onTracked }) {
+export default function TrackModal({ open, productId = null, onClose, onTracked }) {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [searching, setSearching] = useState(false)
@@ -20,10 +20,11 @@ export default function TrackModal({ open, onClose, onTracked }) {
     if (!d) return
     if (open && !d.open) {
       d.showModal()
-      setTimeout(() => input.current?.focus(), 30)
+      if (productId) openProduct(productId) // opened from a search result: go straight to its options
+      else setTimeout(() => input.current?.focus(), 30)
     }
     if (!open && d.open) d.close()
-  }, [open])
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Debounced search; responses that arrive out of order are ignored.
   useEffect(() => {

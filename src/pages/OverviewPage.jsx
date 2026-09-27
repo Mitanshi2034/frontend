@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ChangeFeed from '../components/ChangeFeed'
 import ProductCard from '../components/ProductCard'
+import StoreSearch from '../components/StoreSearch'
 import { useLiveData } from '../lib/useLiveData'
 import { formatDateTime, timeUntil, timeAgo } from '../lib/format'
 
@@ -27,26 +28,7 @@ export default function OverviewPage({ onTrack }) {
             fail.
           </p>
         </div>
-        {tracked.length > 0 && (
-          <label className="filter-box">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-              <circle cx="7" cy="7" r="4.8" fill="none" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M10.6 10.6l3.4 3.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
-            <input
-              type="search"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              placeholder="Search your tracked products"
-              aria-label="Search your tracked products"
-            />
-            {filter && (
-              <span className="filter-count num">
-                {shown.length}/{tracked.length}
-              </span>
-            )}
-          </label>
-        )}
+        <StoreSearch value={filter} onChange={setFilter} tracked={tracked} onPick={(storeProductId) => onTrack(storeProductId)} />
       </section>
 
       <section className="kpis" aria-label="Summary">
@@ -78,7 +60,7 @@ export default function OverviewPage({ onTrack }) {
             <div className="glass empty-state">
               <h2>Nothing tracked yet</h2>
               <p>Search INE’s store, pick a product and one of its options, and its price will be checked every two hours.</p>
-              <button type="button" className="btn btn-primary" onClick={onTrack}>
+              <button type="button" className="btn btn-primary" onClick={() => onTrack()}>
                 Track a product
               </button>
             </div>
@@ -89,14 +71,14 @@ export default function OverviewPage({ onTrack }) {
               ))}
               {words.length > 0 && shown.length === 0 && (
                 <div className="card card-none">
-                  <p>No tracked product matches “{filter.trim()}”.</p>
+                  <p>None of your tracked products match “{filter.trim()}”. Pick one from the store results above to track it.</p>
                   <button type="button" className="link" onClick={() => setFilter('')}>
                     Clear search
                   </button>
                 </div>
               )}
               {words.length === 0 && (
-                <button type="button" className="card card-add" onClick={onTrack}>
+                <button type="button" className="card card-add" onClick={() => onTrack()}>
                   <span className="plus" aria-hidden="true" />
                   Track another product
                 </button>

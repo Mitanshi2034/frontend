@@ -11,7 +11,8 @@ import { LiveDataProvider, useLiveDataSource } from './lib/useLiveData'
 
 export default function App() {
   const live = useLiveDataSource()
-  const [tracking, setTracking] = useState(false)
+  // null = closed, true = open on search, a number = open on that store product's options
+  const [tracking, setTracking] = useState(null)
   const navigate = useNavigate()
 
   return (
@@ -52,11 +53,11 @@ export default function App() {
 
         <main>
           <Routes>
-            <Route path="/" element={<OverviewPage onTrack={() => setTracking(true)} />} />
+            <Route path="/" element={<OverviewPage onTrack={(storeProductId) => setTracking(storeProductId ?? true)} />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/activity" element={<ActivityPage />} />
             <Route path="/status" element={<StatusPage />} />
-            <Route path="*" element={<OverviewPage onTrack={() => setTracking(true)} />} />
+            <Route path="*" element={<OverviewPage onTrack={(storeProductId) => setTracking(storeProductId ?? true)} />} />
           </Routes>
         </main>
 
@@ -67,10 +68,11 @@ export default function App() {
       </div>
 
       <TrackModal
-        open={tracking}
-        onClose={() => setTracking(false)}
+        open={tracking !== null}
+        productId={typeof tracking === 'number' ? tracking : null}
+        onClose={() => setTracking(null)}
         onTracked={(created) => {
-          setTracking(false)
+          setTracking(null)
           live.refresh()
           navigate(`/product/${created.id}`)
         }}

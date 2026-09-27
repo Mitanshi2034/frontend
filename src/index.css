@@ -658,9 +658,76 @@ a.card:hover {
 .filter-box input::placeholder {
   color: var(--ink-muted);
 }
-.filter-count {
-  font-size: 12px;
+.store-search {
+  position: relative;
+  width: min(380px, 100%);
+}
+.store-search .filter-box {
+  width: 100%;
+}
+.search-pop {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  padding: 6px;
+  background: rgba(18, 19, 22, 0.97);
+  max-height: 420px;
+  overflow: auto;
+}
+.search-pop-label {
+  margin: 6px 10px 6px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--ink-muted);
+}
+.search-hit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.search-hit.is-active {
+  background: var(--wash-strong);
+}
+.search-hit-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.search-hit-main .result-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hit-tag {
+  flex: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.hit-add {
+  color: var(--accent);
+  border: 1px solid rgba(240, 179, 90, 0.5);
+}
+.search-hit.is-active .hit-add {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.hit-tracked {
+  color: var(--ink-2);
+  background: var(--wash-strong);
 }
 .card-none {
   grid-column: 1 / -1;
