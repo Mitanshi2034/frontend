@@ -57,3 +57,22 @@ export function formatDuration(ms) {
   if (ms === null || ms === undefined) return '—'
   return `${(ms / 1000).toFixed(1)}s`
 }
+
+// "in 1 h 12 min" / "in 8 min" / "any minute now"
+export function timeUntil(iso) {
+  if (!iso) return '—'
+  const minutes = Math.round((new Date(iso).getTime() - Date.now()) / 60000)
+  if (minutes <= 1) return 'any minute now'
+  if (minutes < 60) return `in ${minutes} min`
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+  return m ? `in ${h} h ${m} min` : `in ${h} h`
+}
+
+// Signed percentage change between two prices, or null when either is missing.
+export function percentChange(current, previous) {
+  const c = Number(current)
+  const p = Number(previous)
+  if (!c || !p) return null
+  return ((c - p) / p) * 100
+}

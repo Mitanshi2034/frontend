@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import OutcomeBadge from './OutcomeBadge'
 import { formatDateTime, formatDuration, formatNumber, formatPrice } from '../lib/format'
 
@@ -7,7 +8,7 @@ const TRIGGERS = { cron: 'Scheduled', manual: 'Manual', cli: 'CLI' }
 
 // Every scrape attempt for one product, failures included. This table is also the
 // accessible "table view" of the charts above it.
-export default function ScrapeLog({ attempts }) {
+export default function ScrapeLog({ attempts, showProduct = false, title = 'Scrape log', actions = null }) {
   const [filter, setFilter] = useState('all')
   const counts = Object.fromEntries(FILTERS.map((f) => [f, f === 'all' ? attempts.length : attempts.filter((a) => a.outcome === f).length]))
   const rows = filter === 'all' ? attempts : attempts.filter((a) => a.outcome === filter)
@@ -15,7 +16,8 @@ export default function ScrapeLog({ attempts }) {
   return (
     <div className="log">
       <div className="log-head">
-        <h3>Scrape log</h3>
+        <h3>{title}</h3>
+        {actions}
         <div className="segmented" role="tablist" aria-label="Filter by outcome">
           {FILTERS.map((f) => (
             <button
@@ -37,6 +39,7 @@ export default function ScrapeLog({ attempts }) {
           <thead>
             <tr>
               <th>Checked at</th>
+              {showProduct && <th>Product</th>}
               <th>Outcome</th>
               <th className="r">Price</th>
               <th className="r">Stock</th>
@@ -52,6 +55,12 @@ export default function ScrapeLog({ attempts }) {
                 <td className="num" title={new Date(a.attempted_at).toISOString()}>
                   {formatDateTime(a.attempted_at)}
                 </td>
+                {showProduct && (
+                  <td className="cell-product">
+                    <Link to={`/product/${a.tracked_product_id}`}>{a.name}</Link>
+                    <span className="muted"> · {a.option_label}</span>
+                  </td>
+                )}
                 <td>
                   <OutcomeBadge outcome={a.outcome} />
                 </td>
@@ -68,7 +77,7 @@ export default function ScrapeLog({ attempts }) {
             ))}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={8} className="muted empty">
+                <td colSpan={showProduct ? 9 : 8} className="muted empty">
                   No {filter === 'all' ? '' : filter} attempts yet.
                 </td>
               </tr>

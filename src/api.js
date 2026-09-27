@@ -33,8 +33,16 @@ export const api = {
   history: (id, limit = 500) => request(`/api/tracked/${id}/history?limit=${limit}`),
   scrapeNow: (id) => request(`/api/tracked/${id}/scrape`, { method: 'POST' }),
 
-  // Scheduler visibility
+  // Scheduler visibility and insights
   runs: (limit = 10) => request(`/api/runs?limit=${limit}`),
+  stats: () => request('/api/stats'),
+  changes: (limit = 30) => request(`/api/changes?limit=${limit}`),
+  attempts: ({ limit = 300, outcome, trackedId } = {}) => {
+    const q = new URLSearchParams({ limit: String(limit) })
+    if (outcome) q.set('outcome', outcome)
+    if (trackedId) q.set('tracked_id', String(trackedId))
+    return request(`/api/attempts?${q}`)
+  },
 }
 
 // A plain link (not fetch) so the browser downloads the file using the server's Content-Disposition.
