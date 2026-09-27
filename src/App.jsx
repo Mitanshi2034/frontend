@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 import Logo from './components/Logo'
 import TrackModal from './components/TrackModal'
+import { exportCsvUrl } from './api'
 import ActivityPage from './pages/ActivityPage'
 import OverviewPage from './pages/OverviewPage'
 import ProductPage from './pages/ProductPage'
@@ -17,23 +18,29 @@ export default function App() {
     <LiveDataProvider value={live}>
       <div className="shell">
         <header className="topbar">
-          <NavLink to="/" className="brand-link" aria-label="pricetrail home">
-            <Logo />
-          </NavLink>
-          <nav className="nav" aria-label="Main">
-            <NavLink to="/" end>
-              Overview
+          <div className="topbar-bar">
+            <NavLink to="/" className="brand-link" aria-label="pricetrail home">
+              <Logo />
             </NavLink>
-            <NavLink to="/activity">Activity</NavLink>
-            <NavLink to="/status">
-              Status
-              {live.runActive && <span className="nav-live" title="A run is in progress" />}
-            </NavLink>
-          </nav>
-          <button type="button" className="btn btn-primary" onClick={() => setTracking(true)}>
-            <span className="plus plus-sm" aria-hidden="true" />
-            Track a product
-          </button>
+            <nav className="nav" aria-label="Main">
+              <NavLink to="/" end>
+                Overview
+              </NavLink>
+              <NavLink to="/activity">Activity</NavLink>
+              <NavLink to="/status">
+                Status
+                {live.runActive && <span className="nav-live" title="A run is in progress" />}
+              </NavLink>
+            </nav>
+            <div className="topbar-actions">
+              <a className="btn btn-outline" href={exportCsvUrl} download>
+                Export CSV
+              </a>
+              <button type="button" className="btn btn-primary" onClick={() => setTracking(true)}>
+                Track a product
+              </button>
+            </div>
+          </div>
         </header>
 
         {live.error && (

@@ -6,7 +6,7 @@
 :root {
   color-scheme: dark;
 
-  --bg: #0a0c0f;
+  --bg: #000000;
   --ink: #ecebe6;
   --ink-2: #b6b4ac;
   --ink-muted: #85847e;
@@ -20,7 +20,7 @@
   --accent-soft: rgba(240, 179, 90, 0.12);
 
   --series-1: #3987e5;
-  --chart-surface: #15181c;
+  --chart-surface: #0e0f11;
   --grid: rgba(255, 255, 255, 0.06);
   --axis: rgba(255, 255, 255, 0.14);
 
@@ -45,29 +45,10 @@
   box-sizing: border-box;
 }
 
-/* The page colour lives on :root so the fixed glow + grain layers below aren't painted over. */
 body {
   margin: 0;
   min-height: 100vh;
-}
-body::before,
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-}
-body::before {
-  background:
-    radial-gradient(900px 620px at 8% -10%, rgba(46, 110, 128, 0.32), transparent 62%),
-    radial-gradient(760px 560px at 100% 105%, rgba(176, 108, 44, 0.2), transparent 60%),
-    radial-gradient(520px 420px at 72% 26%, rgba(57, 135, 229, 0.06), transparent 70%);
-}
-body::after {
-  opacity: 0.07;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background: var(--bg);
 }
 
 h1,
@@ -101,14 +82,16 @@ code {
 
 /* ------------------------------------------------------------------ glass */
 .glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.022));
-  border: 1px solid var(--hairline);
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025) 45%, rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 20px 44px -26px rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(18px) saturate(130%);
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.015),
+    0 24px 48px -28px rgba(0, 0, 0, 1);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
 }
 .panel {
   padding: 20px;
@@ -138,16 +121,26 @@ code {
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  padding: 16px 0;
+  padding: 18px 0 10px;
   margin-bottom: 8px;
-  background: linear-gradient(180deg, rgba(10, 12, 15, 0.92), rgba(10, 12, 15, 0.7) 70%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+}
+.topbar-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px 10px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 23, 26, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px -20px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
 }
 .brand-link {
+  justify-self: start;
   text-decoration: none;
   border-radius: 10px;
 }
@@ -158,51 +151,57 @@ code {
 }
 .logo-mark {
   flex: none;
-  filter: drop-shadow(0 4px 12px rgba(240, 179, 90, 0.35));
-}
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
 }
 .logo-name {
   font-size: 19px;
   font-weight: 600;
-  letter-spacing: -0.03em;
-}
-.logo-name-2 {
-  color: var(--accent);
-}
-.logo-sub {
-  font-size: 11px;
-  color: var(--ink-muted);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.035em;
+  color: var(--ink);
 }
 .nav {
   display: flex;
-  gap: 4px;
-  margin-right: auto;
-  padding: 4px;
-  border-radius: 12px;
-  border: 1px solid var(--hairline);
-  background: rgba(0, 0, 0, 0.22);
+  gap: 6px;
 }
 .nav a {
   position: relative;
-  padding: 6px 14px;
-  border-radius: 8px;
+  padding: 7px 14px;
+  border-radius: 10px;
   color: var(--ink-2);
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s, background 0.15s;
 }
 .nav a:hover {
   color: var(--ink);
+  background: rgba(255, 255, 255, 0.05);
 }
 .nav a.active {
-  background: var(--wash-strong);
   color: var(--ink);
+}
+.nav a.active::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.topbar-actions {
+  justify-self: end;
+  display: flex;
+  gap: 8px;
+}
+.btn-outline {
+  background: transparent;
+  border-color: rgba(240, 179, 90, 0.55);
+  color: var(--accent);
+}
+.btn-outline:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: var(--accent);
 }
 .nav-live {
   position: absolute;
@@ -477,8 +476,11 @@ code {
   gap: 2px;
   padding: 16px 18px;
   border-radius: 14px;
-  border: 1px solid var(--hairline);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   text-decoration: none;
   min-width: 0;
 }
@@ -1316,21 +1318,22 @@ td.empty {
   .shell {
     padding: 0 16px 32px;
   }
-  .topbar {
-    flex-wrap: wrap;
-    gap: 12px;
+  .topbar-bar {
+    grid-template-columns: 1fr auto;
+    padding: 10px 10px 10px 14px;
+    row-gap: 10px;
   }
   .nav {
-    order: 3;
-    width: 100%;
-    margin-right: 0;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
   }
   .nav a {
     flex: 1;
     text-align: center;
   }
-  .topbar .btn-primary {
-    margin-left: auto;
+  .topbar-actions .btn-outline {
+    display: none;
   }
   .kpis {
     grid-template-columns: 1fr 1fr;
@@ -1346,9 +1349,6 @@ td.empty {
   }
   .hero-price-value {
     font-size: 40px;
-  }
-  .logo-sub {
-    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
