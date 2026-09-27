@@ -109,7 +109,7 @@ export default function TrackModal({ open, productId = null, onClose, onTracked 
               ref={input}
               className="modal-search"
               type="search"
-              placeholder="Search 960 products by name: “scanner”, “violin nano”…"
+              placeholder="Search products"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoComplete="off"
@@ -130,7 +130,6 @@ export default function TrackModal({ open, productId = null, onClose, onTracked 
             {query.trim() && !searching && shown.length === 0 && !error && (
               <p className="note">No product names contain “{query.trim()}”.</p>
             )}
-            {!query.trim() && <p className="note">Type part of a product name. Every word must appear, in any order.</p>}
           </>
         ) : (
           <div className="picker">
@@ -155,7 +154,6 @@ export default function TrackModal({ open, productId = null, onClose, onTracked 
             <button type="button" className="btn btn-primary btn-block" disabled={!optionId || busy} onClick={track}>
               {busy ? 'Adding…' : 'Start tracking'}
             </button>
-            <p className="hint">The first price check starts right away, then every 2 hours.</p>
           </div>
         )}
         {error && <p className="note note-error">{error}</p>}

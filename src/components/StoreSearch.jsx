@@ -108,7 +108,7 @@ export default function StoreSearch({ value, onChange, tracked, onPick }) {
       {open && value.trim() && (
         <div className="search-pop glass" id="store-search-results" role="listbox">
           <p className="search-pop-label">
-            {loading && shown.length === 0 ? 'Searching the store…' : shown.length ? 'Your products first, then INE’s store' : `No store product contains “${value.trim()}”`}
+            {loading && shown.length === 0 ? 'Searching…' : shown.length ? 'Products' : 'No results'}
           </p>
           {shown.map((r, i) => {
             const mine = trackedBy(r.store_product_id)

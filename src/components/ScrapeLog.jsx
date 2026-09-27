@@ -72,7 +72,7 @@ export default function ScrapeLog({ attempts, showProduct = false, title = 'Scra
                 </td>
                 <td className="r num">{formatDuration(a.duration_ms)}</td>
                 <td>{TRIGGERS[a.trigger] ?? a.trigger}</td>
-                <td className="notes">{a.error ? <Notes text={a.error} /> : <span className="muted">Clean run</span>}</td>
+                <td className="notes">{a.error ? <Notes text={a.error} /> : <span className="muted">—</span>}</td>
               </tr>
             ))}
             {rows.length === 0 && (

@@ -114,7 +114,7 @@ export default function ProductPage() {
               type="button"
               className="btn"
               disabled={busy || runActive || !product.is_active}
-              onClick={() => act(() => api.scrapeNow(product.id), 'Checking now. The result appears here in about 15 seconds.')}
+              onClick={() => act(() => api.scrapeNow(product.id))}
             >
               {runActive ? 'Checking…' : 'Check now'}
             </button>
@@ -142,7 +142,7 @@ export default function ProductPage() {
               <span className="muted"> · {FREQUENCY[product.scrape_interval_minutes] ?? `every ${product.scrape_interval_minutes} min`}</span>
             </span>
             {product.last_outcome === 'failed' && product.last_success_at && (
-              <span className="card-warn">The last check failed; this price is from {formatDateTime(product.last_success_at)}.</span>
+              <span className="card-warn">Last check failed · price from {formatDateTime(product.last_success_at)}</span>
             )}
           </div>
           <PriceInsight current={product.last_price} low={product.min_price} avg={product.avg_price} high={product.max_price} />

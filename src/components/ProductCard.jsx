@@ -33,7 +33,7 @@ export default function ProductCard({ product: t }) {
         <span className="muted">{t.is_active ? `checked ${timeAgo(t.last_attempt_at)}` : 'paused'}</span>
       </div>
       {failedLast && t.last_success_at && (
-        <p className="card-warn">Last check failed. Price is from {timeAgo(t.last_success_at)}.</p>
+        <p className="card-warn">Last check failed · price from {timeAgo(t.last_success_at)}</p>
       )}
     </Link>
   )

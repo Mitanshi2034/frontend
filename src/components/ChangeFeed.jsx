@@ -23,15 +23,15 @@ function describe(e) {
     case 'sold_out':
       return `was ${formatNumber(e.old_value)} in stock`
     case 'layout_changed':
-      return `variant ${e.old_value} → ${e.new_value}; the scraper adapted automatically`
+      return `variant ${e.old_value} → ${e.new_value}`
     default:
-      return 'the check failed instead of guessing'
+      return ''
   }
 }
 
 export default function ChangeFeed({ changes, limit = 8, productId }) {
   const items = (productId ? changes.filter((c) => c.tracked_product_id === productId) : changes).slice(0, limit)
-  if (items.length === 0) return <p className="note">No changes yet. They appear here as prices and stock move.</p>
+  if (items.length === 0) return <p className="note">No changes yet.</p>
   return (
     <ul className="feed">
       {items.map((e, i) => {
@@ -50,7 +50,7 @@ export default function ChangeFeed({ changes, limit = 8, productId }) {
                   </>
                 )}
               </p>
-              <p className="feed-detail num">{describe(e)}</p>
+              {describe(e) && <p className="feed-detail num">{describe(e)}</p>}
             </div>
             <span className="feed-when muted">{timeAgo(e.attempted_at)}</span>
           </li>

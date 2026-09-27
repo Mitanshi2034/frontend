@@ -15,14 +15,7 @@ export default function PriceInsight({ current, low, avg, high }) {
   return (
     <div className="insight">
       <p className="insight-line">
-        {span === 0 ? (
-          <>Only one price seen so far. The range fills in as checks come in.</>
-        ) : (
-          <>
-            Today’s price is <strong className={`verdict verdict-${verdict}`}>{verdict}</strong> compared with every price
-            we’ve recorded.
-          </>
-        )}
+        Price is <strong className={`verdict verdict-${span === 0 ? 'typical' : verdict}`}>{span === 0 ? 'new' : verdict}</strong>
       </p>
       <div className="insight-track" role="img" aria-label={`Current price ${formatPrice(c)}, lowest ${formatPrice(lo)}, highest ${formatPrice(hi)}`}>
         <span className="insight-band" />

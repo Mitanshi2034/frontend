@@ -123,10 +123,10 @@ export default function HistoryCharts({ attempts }) {
       </div>
 
       {data.length === 0 ? (
-        <p className="note chart-empty">No checks in this time range yet.</p>
+        <p className="note chart-empty">No data in this range.</p>
       ) : prices.length < 2 ? (
         <p className="note chart-empty">
-          {prices.length === 1 ? 'One successful check so far. The chart draws itself from the second check on.' : 'No successful checks in this range.'}
+          {prices.length === 1 ? 'Only one check so far.' : 'No data in this range.'}
         </p>
       ) : (
         <>
@@ -139,8 +139,8 @@ export default function HistoryCharts({ attempts }) {
             <SeriesChart data={data} dataKey="stock" unit="stock" height={120} ticks={stockTicks} tickFormatter={formatNumber} failures={failures} showXAxis />
           </div>
           <p className="chart-key">
-            <span className="key-line" aria-hidden="true" /> successful check
-            <span className="key-rule" aria-hidden="true" /> failed check (no data stored, the line breaks)
+            <span className="key-line" aria-hidden="true" /> price
+            <span className="key-rule" aria-hidden="true" /> failed check
           </p>
         </>
       )}

@@ -243,7 +243,7 @@ code {
 .page-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   gap: 20px;
   flex-wrap: wrap;
   padding-top: 10px;
@@ -435,8 +435,30 @@ code {
 .glyph-none {
   color: var(--ink-muted);
 }
+/* Failed reads red end to end: cross, word, tint and edge. */
 .badge-failed {
-  border-color: rgba(208, 59, 59, 0.35);
+  color: var(--critical-text);
+  background: rgba(208, 59, 59, 0.14);
+  border-color: rgba(208, 59, 59, 0.5);
+}
+.badge-failed .glyph-failed {
+  color: #ff5f5f;
+}
+
+/* The search boxes' clear button: a red cross instead of the browser's grey one. */
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-left: 8px;
+  cursor: pointer;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 3l8 8M11 3l-8 8' stroke='%23ff5f5f' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  opacity: 0.85;
+}
+input[type='search']::-webkit-search-cancel-button:hover {
+  opacity: 1;
 }
 .delta {
   display: inline-flex;
@@ -573,9 +595,9 @@ a.card:hover {
   align-items: center;
   height: 34px;
   margin: 2px 0 8px;
-  font-size: 11px;
-  color: var(--ink-muted);
-  border-top: 1px dashed var(--hairline-strong);
+  border-top: 1px dashed var(--hairline);
+  margin-top: 18px;
+  height: 18px;
 }
 .card-foot {
   display: flex;

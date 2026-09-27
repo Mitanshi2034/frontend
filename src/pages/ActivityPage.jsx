@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { api, exportCsvUrl } from '../api'
+import { api } from '../api'
 import ScrapeLog from '../components/ScrapeLog'
 import { useLiveData } from '../lib/useLiveData'
 
@@ -29,16 +29,7 @@ export default function ActivityPage() {
   return (
     <div className="page">
       <section className="page-head">
-        <div>
-          <h1>Activity</h1>
-          <p className="lede">
-            Every price check the scraper has made, newest first. Failed checks stay in the log with the reason, and
-            store no price.
-          </p>
-        </div>
-        <a className="btn btn-primary" href={exportCsvUrl} download>
-          Export CSV
-        </a>
+        <h1>Activity</h1>
       </section>
 
       <section className="glass panel">
@@ -61,10 +52,6 @@ export default function ActivityPage() {
           />
         )}
       </section>
-      <p className="foot-note">
-        The CSV has one row per check: store product ID, product name, option, timestamp (ISO 8601, UTC), price, stock and
-        outcome. Failed checks are included with price and stock left empty.
-      </p>
     </div>
   )
 }

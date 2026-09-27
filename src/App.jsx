@@ -43,8 +43,7 @@ export default function App() {
 
         {live.error && (
           <p className="glass banner-error">
-            Can’t reach the API ({live.error}). If the server was asleep it can take up to a minute to wake up; this page
-            keeps retrying on its own.
+            Can’t reach the server. Retrying…
           </p>
         )}
 
@@ -58,10 +57,6 @@ export default function App() {
           </Routes>
         </main>
 
-        <footer className="foot">
-          <span>Data scraped from INE’s mock store, demo.inelabteamdev.com.</span>
-          <span>Times are in your time zone; the CSV export uses UTC.</span>
-        </footer>
       </div>
 
       <TrackModal

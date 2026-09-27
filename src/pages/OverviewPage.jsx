@@ -4,7 +4,7 @@ import ChangeFeed from '../components/ChangeFeed'
 import ProductCard from '../components/ProductCard'
 import StoreSearch from '../components/StoreSearch'
 import { useLiveData } from '../lib/useLiveData'
-import { formatDateTime, timeUntil, timeAgo } from '../lib/format'
+import { timeUntil } from '../lib/format'
 
 export default function OverviewPage({ onTrack }) {
   const { tracked, stats, changes, loaded, runActive } = useLiveData()
@@ -21,13 +21,7 @@ export default function OverviewPage({ onTrack }) {
   return (
     <div className="page">
       <section className="page-head">
-        <div>
-          <h1>Your tracked products</h1>
-          <p className="lede">
-            Price and stock from INE’s store, checked every two hours. Every check is recorded, including the ones that
-            fail.
-          </p>
-        </div>
+        <h1>Your tracked products</h1>
         <StoreSearch value={filter} onChange={setFilter} tracked={tracked} onPick={(storeProductId) => onTrack(storeProductId)} />
       </section>
 
@@ -35,22 +29,18 @@ export default function OverviewPage({ onTrack }) {
         <div className="kpi">
           <span className="kpi-label">Tracking</span>
           <span className="kpi-value num">{tracked.filter((t) => t.is_active).length}</span>
-          <span className="kpi-sub">product options</span>
         </div>
         <div className="kpi">
           <span className="kpi-label">Checks, last 24 h</span>
           <span className="kpi-value num">{stats?.checks_24h ?? '—'}</span>
-          <span className="kpi-sub">{stats ? `${stats.checks_total} in total since ${formatDateTime(stats.first_check_at)}` : ''}</span>
         </div>
         <div className="kpi">
           <span className="kpi-label">Got a price</span>
           <span className="kpi-value num">{successRate === null ? '—' : `${successRate}%`}</span>
-          <span className="kpi-sub">of checks in the last 24 h</span>
         </div>
         <Link to="/status" className="kpi kpi-link">
           <span className="kpi-label">Next scheduled check</span>
           <span className="kpi-value kpi-value-sm">{runActive ? 'Running now' : nextCheck ? `≈ ${timeUntil(nextCheck)}` : '—'}</span>
-          <span className="kpi-sub">{stats?.last_scheduled_at ? `last ${timeAgo(stats.last_scheduled_at)}` : 'waiting for first run'}</span>
         </Link>
       </section>
 
@@ -59,7 +49,6 @@ export default function OverviewPage({ onTrack }) {
           {loaded && tracked.length === 0 ? (
             <div className="glass empty-state">
               <h2>Nothing tracked yet</h2>
-              <p>Search INE’s store, pick a product and one of its options, and its price will be checked every two hours.</p>
               <button type="button" className="btn btn-primary" onClick={() => onTrack()}>
                 Track a product
               </button>
@@ -71,7 +60,7 @@ export default function OverviewPage({ onTrack }) {
               ))}
               {words.length > 0 && shown.length === 0 && (
                 <div className="card card-none">
-                  <p>None of your tracked products match “{filter.trim()}”. Pick one from the store results above to track it.</p>
+                  <p>No tracked product matches “{filter.trim()}”.</p>
                   <button type="button" className="link" onClick={() => setFilter('')}>
                     Clear search
                   </button>
@@ -90,7 +79,6 @@ export default function OverviewPage({ onTrack }) {
         <aside className="glass side-panel" aria-label="Recent changes">
           <header className="panel-head">
             <h2>Recent changes</h2>
-            <span className="hint">price, stock, store layout</span>
           </header>
           <ChangeFeed changes={changes} limit={9} />
         </aside>

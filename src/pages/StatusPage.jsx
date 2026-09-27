@@ -1,28 +1,21 @@
 import { useLiveData } from '../lib/useLiveData'
-import { formatDateTime, formatDuration, timeAgo, timeUntil } from '../lib/format'
+import { formatDateTime, formatDuration, timeUntil } from '../lib/format'
 
 const TRIGGERS = { cron: 'Scheduled', manual: 'Manual', cli: 'CLI' }
 
 // Is the scheduler actually running, and how are runs going?
 export default function StatusPage() {
   const { runs, stats, runActive } = useLiveData()
-  const scheduled = runs.filter((r) => r.trigger === 'cron')
   const nextCheck = stats?.last_scheduled_at ? new Date(new Date(stats.last_scheduled_at).getTime() + 120 * 60e3).toISOString() : null
   const rate = stats?.checks_total ? Math.round((stats.ok_total / stats.checks_total) * 100) : null
 
   return (
     <div className="page">
       <section className="page-head">
-        <div>
-          <h1>Scheduler status</h1>
-          <p className="lede">
-            cron-job.org calls the API every two hours. The API answers straight away and scrapes in the background, one
-            product at a time.
-          </p>
-        </div>
+        <h1>Scheduler status</h1>
         <span className={`state-pill ${runActive ? 'is-running' : ''}`}>
           <span className="live-dot" aria-hidden="true" />
-          {runActive ? 'A run is in progress' : 'Idle, waiting for the next run'}
+          {runActive ? 'Running' : 'Idle'}
         </span>
       </section>
 
@@ -30,22 +23,18 @@ export default function StatusPage() {
         <div className="kpi">
           <span className="kpi-label">Scheduled runs so far</span>
           <span className="kpi-value num">{stats?.scheduled_runs ?? '—'}</span>
-          <span className="kpi-sub">{stats?.first_check_at ? `since ${formatDateTime(stats.first_check_at)}` : ''}</span>
         </div>
         <div className="kpi">
           <span className="kpi-label">Next scheduled run</span>
           <span className="kpi-value kpi-value-sm">{nextCheck ? `≈ ${timeUntil(nextCheck)}` : '—'}</span>
-          <span className="kpi-sub">{stats?.last_scheduled_at ? `last ${timeAgo(stats.last_scheduled_at)}` : ''}</span>
         </div>
         <div className="kpi">
           <span className="kpi-label">Checks with a price</span>
           <span className="kpi-value num">{rate === null ? '—' : `${rate}%`}</span>
-          <span className="kpi-sub">{stats ? `${stats.ok_total} of ${stats.checks_total}, all time` : ''}</span>
         </div>
         <div className="kpi">
           <span className="kpi-label">Average check</span>
           <span className="kpi-value num">{formatDuration(stats?.avg_duration_ms_24h)}</span>
-          <span className="kpi-sub">per product, last 24 h</span>
         </div>
       </section>
 
@@ -53,7 +42,6 @@ export default function StatusPage() {
         <section className="glass panel">
           <header className="panel-head">
             <h2>Recent runs</h2>
-            <span className="hint">{scheduled.length} scheduled in this list</span>
           </header>
           <div className="table-wrap">
             <table>

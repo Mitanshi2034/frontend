@@ -4,7 +4,7 @@ export default function Sparkline({ points = [], width = 132, height = 34 }) {
   const values = points.map((p) => (p.outcome === 'failed' || p.price === null ? null : Number(p.price)))
   const real = values.filter((v) => v !== null)
   if (real.length < 2) {
-    return <span className="spark-empty">trend after 2 checks</span>
+    return <span className="spark-empty" aria-hidden="true" />
   }
   const lo = Math.min(...real)
   const hi = Math.max(...real)
