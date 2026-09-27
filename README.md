@@ -22,14 +22,44 @@ listed first; pick any other, choose one option, and the first check starts imme
 The data refreshes itself every 20 seconds, and every 4 seconds while a run is in progress.
 
 ## Run locally
+
+The dashboard needs the **backend API** running. The full step-by-step guide for both repos, including the Supabase
+database and troubleshooting, is in the backend README:
+**[Run the whole project locally](https://github.com/Mitanshi2034/backend#run-the-whole-project-locally)**.
+
+Quick version:
 ```bash
+mkdir cipher && cd cipher
+git clone https://github.com/Mitanshi2034/backend.git
 git clone https://github.com/Mitanshi2034/frontend.git
-cd frontend
-cp .env.example .env      # VITE_API_URL=http://localhost:4000
-npm install
-npm run dev               # http://localhost:5173
+
+# terminal 1: backend (see its README for the .env values)
+cd backend && npm install && npx playwright install chromium
+cp .env.example .env        # set DATABASE_URL and CRON_SECRET
+npm run db:migrate && npm run dev          # http://localhost:4000
+
+# terminal 2: frontend
+cd frontend && npm install
+cp .env.example .env        # VITE_API_URL=http://localhost:4000
+npm run dev                                 # http://localhost:5173
 ```
-Requires the backend running locally (or point `VITE_API_URL` at the live API).
+
+**Frontend only, against the live API** (no database or backend needed):
+```bash
+git clone https://github.com/Mitanshi2034/frontend.git && cd frontend
+npm install
+echo "VITE_API_URL=https://ine-price-tracker-api-iwhp.onrender.com" > .env
+npm run dev
+```
+This works because the deployed API's `CORS_ORIGIN` includes `http://localhost:5173`. If you point it at your own backend, add `http://localhost:5173` to that backend's `CORS_ORIGIN`.
+
+### Commands
+| Command | What it does |
+|---|---|
+| `npm run dev` | Dev server with hot reload (http://localhost:5173) |
+| `npm run build` | Production build into `dist/` (what Vercel runs) |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Lint with oxlint |
 
 ## Environment variables
 | Variable | Example | Meaning |
