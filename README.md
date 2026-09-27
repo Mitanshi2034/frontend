@@ -1,6 +1,7 @@
-# INE Price Tracker: Frontend
+# CIPHER: INE Price Tracker (Frontend)
 
-React (Vite) dashboard for tracking the price and stock of products in INE's mock store.
+**CIPHER** is a React (Vite) dashboard that tracks the price and stock of products in INE's mock store. The store encrypts
+its prices behind a browser challenge, and CIPHER decodes them on a schedule.
 
 | | |
 |---|---|
@@ -41,4 +42,4 @@ Import the repo in Vercel (framework preset **Vite**, build `npm run build`, out
 Add the resulting URL to the backend's `CORS_ORIGIN`.
 
 ## Stack
-React 19 · Vite 8 · React Router 7 · Recharts · plain CSS (dark, frosted-glass design, no UI kit or icon pack; the logo and status marks are hand-drawn SVG).
+React 19 · Vite 8 · React Router 7 · Recharts · plain CSS (dark, frosted-glass design, no UI kit or icon pack; the logo and status marks are hand-drawn SVG). Fonts: Michroma (wordmark), Instrument Sans (text), IBM Plex Mono (numbers).

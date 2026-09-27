@@ -20,7 +20,7 @@ export default function App() {
       <div className="shell">
         <header className="topbar">
           <div className="topbar-bar">
-            <NavLink to="/" className="brand-link" aria-label="pricetrail home">
+            <NavLink to="/" className="brand-link" aria-label="CIPHER home">
               <Logo />
             </NavLink>
             <nav className="nav" aria-label="Main">

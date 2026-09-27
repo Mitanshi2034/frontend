@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   pricetrail: dark, frosted-glass UI
+   CIPHER: dark, frosted-glass UI
    One warm accent (amber) for actions; blue is reserved for data.
    Status colours only ever appear next to a shape and a word.
 --------------------------------------------------------------------------- */
@@ -34,6 +34,7 @@
   --radius-sm: 10px;
   --sans: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --brand: 'Michroma', 'Instrument Sans', sans-serif;
 
   font: 14px/1.5 var(--sans);
   color: var(--ink);
@@ -153,10 +154,14 @@ code {
   flex: none;
 }
 .logo-name {
-  font-size: 19px;
-  font-weight: 600;
-  letter-spacing: -0.035em;
+  font-family: 'Michroma', var(--sans);
+  font-size: 16px;
+  font-weight: 400; /* Michroma has a single weight */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--ink);
+  line-height: 1;
+  padding-top: 1px;
 }
 .nav {
   display: flex;
