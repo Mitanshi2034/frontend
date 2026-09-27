@@ -155,8 +155,10 @@ code {
 }
 .logo-name {
   font-family: 'Michroma', var(--sans);
-  font-size: 16px;
-  font-weight: 400; /* Michroma has a single weight */
+  font-size: 17px;
+  font-weight: 400; /* Michroma ships a single weight, so the stroke below thickens it */
+  -webkit-text-stroke: 0.7px currentColor;
+  paint-order: stroke fill;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink);
