@@ -34,7 +34,7 @@ export default function App() {
               </NavLink>
             </nav>
             <div className="topbar-actions">
-              <a className="btn btn-outline" href={exportCsvUrl} download>
+              <a className="btn btn-primary" href={exportCsvUrl} download>
                 Export CSV
               </a>
             </div>

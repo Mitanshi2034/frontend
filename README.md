@@ -10,9 +10,9 @@ React (Vite) dashboard for tracking the price and stock of products in INE's moc
 ## Pages
 | Page | What it shows |
 |---|---|
-| **Overview** `/` | Summary (products tracked, checks in the last 24 h, % of checks that got a price, next scheduled check), a card per tracked product (price, change since last check, trend line, stock, last check), and a **Recent changes** feed: price drops and rises, back in stock, sold out, store layout changes (the in-app alerts) |
-| **Product** `/product/:id` | Current price with change and MRP, stock, delivery, seller, rating; where today's price sits between the lowest, average and highest ever recorded; price and stock charts with time ranges (failed checks break the line and are marked); the product's changes; its full scrape log. Actions: **Check now**, and in the ⋯ menu the check frequency (bonus: per-product frequency) and **Stop tracking** |
-| **Activity** `/activity` | Every scrape attempt across all products (`success` / `retried` / `failed`), filterable, with **Export CSV** |
+| **Overview** `/` | Summary (products tracked, checks in the last 24 h, % of checks that got a price, next scheduled check), a card per tracked product (price, change since last check, trend line, stock, last check), and an **Alerts** panel: price drops and rises, back in stock, sold out, store layout changes |
+| **Product** `/product/:id` | Current price with change and MRP, stock, delivery, seller, rating; where today's price sits between the lowest, average and highest ever recorded; price and stock charts with time ranges (failed checks break the line and are marked); its alerts and full scrape log. Actions: **Check now**, and in the ⋯ menu the check frequency (bonus: per-product frequency) and **Stop tracking** |
+| **Activity** `/activity` | Every scrape attempt across all products (`success` / `retried` / `failed`), filterable, (Export CSV is in the navbar) |
 | **Status** `/status` | The scheduler: scheduled runs so far, next run, success rate, average check time, run history, and how a run works |
 
 **Tracking a product:** the search box on the Overview searches all 960 store products. Products you already track are
