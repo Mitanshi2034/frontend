@@ -37,9 +37,6 @@ export default function App() {
               <a className="btn btn-outline" href={exportCsvUrl} download>
                 Export CSV
               </a>
-              <button type="button" className="btn btn-primary" onClick={() => setTracking(true)}>
-                Track a product
-              </button>
             </div>
           </div>
         </header>

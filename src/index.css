@@ -1452,9 +1452,6 @@ td.empty {
     flex: 1;
     text-align: center;
   }
-  .topbar-actions .btn-outline {
-    display: none;
-  }
   .kpis {
     grid-template-columns: 1fr 1fr;
   }

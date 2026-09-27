@@ -15,8 +15,8 @@ React (Vite) dashboard for tracking the price and stock of products in INE's moc
 | **Activity** `/activity` | Every scrape attempt across all products (`success` / `retried` / `failed`), filterable, with **Export CSV** |
 | **Status** `/status` | The scheduler: scheduled runs so far, next run, success rate, average check time, run history, and how a run works |
 
-**Track a product** (top right, on every page) opens a search: type part of a product name, open it, pick one option, and
-the first check starts immediately.
+**Tracking a product:** the search box on the Overview searches all 960 store products. Products you already track are
+listed first; pick any other, choose one option, and the first check starts immediately.
 
 The data refreshes itself every 20 seconds, and every 4 seconds while a run is in progress.
 
